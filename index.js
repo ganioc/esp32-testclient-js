@@ -36,7 +36,7 @@ client.on('error', (e) => {
 
 client.on('data', (chunk) => {
   console.log('Rx:')
-  console.log(chunk)
+  console.log('Hex', chunk)
 })
 
 
@@ -77,11 +77,14 @@ function handleCmd(cmds, cb) {
         }
       })
       break;
-    case 'delete':
+    case 't':
+      console.log('To set timestamp')
 
-      break;
-    case 'modify':
-
+      client.write(frame.frame_set_timestamp(new Date().getTime()), (err) => {
+        if (err) {
+          console.log('send en failed');
+        }
+      })
       break;
     case 'q':
     case 'quit':
