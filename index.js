@@ -1,10 +1,44 @@
 const prompts = require('prompts');
+const net = require('net')
+// const util = require('./lib/util')
+const frame = require('./lib/frame')
+
+let HOST = '';
+let PORT = 9000;
+
+if (process.env.HOST) {
+  HOST = process.env.HOST;
+} else {
+  console.log('No HOST')
+  process.exit(1);
+}
+
+if (process.env.PORT) {
+  PORT = process.env.PORT;
+}
+
 
 
 const onCancel = prompt => {
   console.log('quit')
   process.exit(1)
 }
+
+
+///////////////////////////
+let client = new net.Socket();
+
+client.connect(PORT, HOST);
+
+client.on('error', (e) => {
+  console.log(e);
+})
+
+client.on('data', (chunk) => {
+  console.log('Rx:')
+  console.log(chunk)
+})
+
 
 function handleCmd(cmds, cb) {
   let words = cmds.replace(/\s+/g, ' ').split(' ');
@@ -19,11 +53,29 @@ function handleCmd(cmds, cb) {
   console.log('args:', args)
 
   switch (cmd1) {
-    case 'list':
-
+    case 'e':
+      console.log('To enable sending notification data');
+      client.write(frame.frame_en(), (err) => {
+        if (err) {
+          console.log('send en failed');
+        }
+      })
       break;
-    case 'add':
-
+    case 'r':
+      console.log('To reset UT device')
+      client.write(frame.frame_reset_UT(), (err) => {
+        if (err) {
+          console.log('send en failed');
+        }
+      })
+      break;
+    case 're':
+      console.log('To reset ESP32')
+      client.write(frame.frame_reset_ESP32(), (err) => {
+        if (err) {
+          console.log('send en failed');
+        }
+      })
       break;
     case 'delete':
 
