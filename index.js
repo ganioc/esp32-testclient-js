@@ -55,7 +55,7 @@ function handleCmd(cmds, cb) {
   switch (cmd1) {
     case 'e':
       console.log('To enable sending notification data');
-      client.write(frame.frame_en(), (err) => {
+      client.write(frame.frame_en(args[0]), (err) => {
         if (err) {
           console.log('send en failed');
         }
@@ -81,6 +81,15 @@ function handleCmd(cmds, cb) {
       console.log('To set timestamp')
 
       client.write(frame.frame_set_timestamp(new Date().getTime()), (err) => {
+        if (err) {
+          console.log('send en failed');
+        }
+      })
+      break;
+    case 'tg':
+      console.log('To get timestamp')
+
+      client.write(frame.frame_get_timestamp(), (err) => {
         if (err) {
           console.log('send en failed');
         }
