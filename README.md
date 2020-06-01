@@ -8,6 +8,7 @@
 ## Usage
 
 ```
-HOST=192.168.32.189  PORT=9000 node index.js
+HOST=192.168.32.108  PORT=9000 node index.js
 
+HOST=192.168.4.2  PORT=9000 node index.js
 ```

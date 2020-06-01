@@ -95,6 +95,46 @@ function handleCmd(cmds, cb) {
         }
       })
       break;
+    case 'mr':
+      console.log('To get working mode')
+      client.write(frame.frame_get_mode(), (err) => {
+        if (err) {
+          console.log('send mr failed')
+        }
+      })
+      break;
+    case 'ms':
+      console.log('To stop working mode')
+      client.write(frame.frame_stop_mode(), (err) => {
+        if (err) {
+          console.log('send ms failed')
+        }
+      })
+      break;
+    case 'r1':
+      console.log('To read switch 1')
+      client.write(frame.frame_read_switch(1), (err) => {
+        if (err) {
+          console.log('send r1 failed')
+        }
+      })
+      break;
+    case 'r2':
+      console.log('To read switch 2')
+      client.write(frame.frame_read_switch(2), (err) => {
+        if (err) {
+          console.log('send r2 failed')
+        }
+      })
+      break;
+    case 'v':
+      console.log('To read version')
+      client.write(frame.frame_read_version(), (err) => {
+        if (err) {
+          console.log('send v failed')
+        }
+      })
+      break;
     case 'q':
     case 'quit':
     case 'quit()':
