@@ -135,6 +135,28 @@ function handleCmd(cmds, cb) {
         }
       })
       break;
+    case 'u':
+      console.log('To upgrade')
+      console.log('url:', args[0])
+      if (args[0].length === 0) {
+        console.log('empty url')
+      } else {
+        client.write(frame.frame_set_upgrade(args[0]), (err) => {
+          if (err) {
+            console.log('send u failed')
+          }
+        })
+      }
+
+      break;
+    case 'ug':
+      console.log('To get upgrade status')
+      client.write(frame.frame_get_upgrade(), (err) => {
+        if (err) {
+          console.log('send ug failed')
+        }
+      })
+      break;
     case 'q':
     case 'quit':
     case 'quit()':
