@@ -2,6 +2,7 @@ const prompts = require('prompts');
 const net = require('net')
 // const util = require('./lib/util')
 const frame = require('./lib/frame')
+const robot = require('robotjs')
 
 let HOST = '';
 let PORT = 9000;
@@ -37,6 +38,7 @@ client.on('error', (e) => {
 client.on('data', (chunk) => {
   console.log('Rx:')
   console.log('Hex', chunk)
+  robot.keyTap("enter")
 })
 
 
@@ -49,10 +51,15 @@ function handleCmd(cmds, cb) {
   const cmd1 = words[0].toLowerCase();
   const args = words.splice(1, words.length - 1)
 
+  // if (cmd1.length === 0) {
+  //   return;
+  // }
+
   console.log('cmd:', cmd1)
   console.log('args:', args)
 
   switch (cmd1) {
+
     case 'e':
       console.log('To enable sending notification data');
       client.write(frame.frame_en(args[0]), (err) => {
